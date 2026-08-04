@@ -24,3 +24,13 @@ Foundation changes:
 - Added generated-artifact boundaries under `generated/`.
 - Updated versioned documentation to describe the implemented foundation and
   planned CAD analysis steps.
+
+STEP inspection changes:
+
+- Added typed CAD inspection models.
+- Added a CadQuery STEP importer that validates paths, detects millimeter units,
+  enumerates positive-volume solids, and converts geometry properties to SI
+  units.
+- Added `python -m drone_cad.cli inspect-step cad/v1-drone.step`.
+- Recorded actual import results for the provided drone: `300` usable solids and
+  `0.0005540579326155427 m^3` summed solid volume.

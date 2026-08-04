@@ -4,19 +4,16 @@ import argparse
 import json
 from pathlib import Path
 
+from drone_cad.cad import StepImporter
 
-def _not_implemented(command: str) -> int:
-    print(
-        json.dumps(
-            {
-                "status": "not_implemented",
-                "command": command,
-                "message": "CAD processing is added in the next feature commit.",
-            },
-            indent=2,
-        )
-    )
-    return 2
+
+def _write_json(payload: str, output_path: Path | None = None) -> None:
+    if output_path is None:
+        print(payload)
+        return
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(payload + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -25,6 +22,7 @@ def main() -> int:
 
     inspect_parser = subparsers.add_parser("inspect-step")
     inspect_parser.add_argument("step_path", type=Path)
+    inspect_parser.add_argument("--output", type=Path)
 
     analyze_parser = subparsers.add_parser("analyze")
     analyze_parser.add_argument("step_path", type=Path)
@@ -36,7 +34,22 @@ def main() -> int:
     export_parser.add_argument("--output", type=Path, required=True)
 
     args = parser.parse_args()
-    return _not_implemented(args.command)
+    if args.command == "inspect-step":
+        inspection = StepImporter().inspect(args.step_path)
+        _write_json(inspection.model_dump_json(indent=2), args.output)
+        return 0
+
+    print(
+        json.dumps(
+            {
+                "status": "not_implemented",
+                "command": args.command,
+                "message": "This command is added in a later feature commit.",
+            },
+            indent=2,
+        )
+    )
+    return 2
 
 
 if __name__ == "__main__":

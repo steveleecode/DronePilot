@@ -16,10 +16,12 @@ and displaying model properties in a browser.
 - Versioned documentation under `docs/`.
 - Local Markdown link validator at `scripts/validate-docs-links.sh`.
 - Git-tracked CAD file rename to `cad/v1-drone.step`.
+- STEP inspection CLI that imports the provided drone and reports normalized
+  part geometry.
 
 ## Not Yet Implemented
 
-- STEP geometry importer.
+- Rich STEP assembly hierarchy and placement recovery.
 - Material assignment and mass-property calculations.
 - GLB or glTF export.
 - API endpoints for model metadata and analysis.
@@ -64,7 +66,9 @@ The STEP header reports:
 - STEP schema: `AUTOMOTIVE_DESIGN`.
 
 The foundation commit does not claim the file has been parsed or validated by
-project code. Import results are documented after the STEP importer runs.
+project code. The STEP inspection feature imported it as a compound with 300
+usable solids, detected millimeter source units, and measured a summed solid
+volume of `0.0005540579326155427 m^3`.
 
 ## Product Direction
 

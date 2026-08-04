@@ -35,6 +35,8 @@ make validate
 ## Current Coverage
 
 - Backend health endpoint test.
+- STEP unit detection test.
+- STEP inspection test using a generated box fixture.
 - Frontend placeholder render test.
 - Documentation local link validation.
 

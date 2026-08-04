@@ -1,7 +1,10 @@
 # Known Limitations
 
-- The foundation commit has not yet parsed `cad/v1-drone.step`.
-- STEP units and assembly metadata are not yet recovered by project code.
+- STEP inspection imports `cad/v1-drone.step`, but assembly hierarchy,
+  component names, and placement transforms are not recovered by the basic
+  CadQuery importer.
+- STEP units are detected from header unit declarations; unusual STEP files may
+  need more robust OCP-level unit handling.
 - No material assignment, volume-derived mass, center of gravity, bounding box,
   inertia tensor, or generated GLB exists yet.
 - The frontend currently renders only a placeholder shell.

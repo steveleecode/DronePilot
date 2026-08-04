@@ -46,6 +46,12 @@ Process the STEP file into normalized analysis JSON:
 make process-cad
 ```
 
+Inspect the STEP file and print normalized geometry JSON:
+
+```sh
+.venv/bin/python -m drone_cad.cli inspect-step cad/v1-drone.step
+```
+
 Export browser-renderable geometry:
 
 ```sh
