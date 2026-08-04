@@ -71,3 +71,10 @@ Viewer changes:
   z-up grid, and engineering-property panel.
 - Added frontend tests for API-loaded properties and engineering-value
   formatting.
+
+Integration validation:
+
+- Recorded the end-to-end browser validation result with desktop and narrow
+  screenshots.
+- Confirmed the API and frontend run together against generated analysis and
+  GLB artifacts.

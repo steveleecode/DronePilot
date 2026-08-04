@@ -60,5 +60,5 @@ Use tolerances rather than exact floating-point equality for numerical results.
 
 ## Visual Checks
 
-The foundation commit does not render the real CAD model. Browser visual
-validation is required when the Three.js viewer is implemented.
+Browser visual validation for the v0.1.0 viewer is recorded in
+[Visual Validation](visual-validation.md).

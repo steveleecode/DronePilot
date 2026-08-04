@@ -23,3 +23,4 @@ Start here:
 - [Frontend](versions/v0.1.0/frontend.md)
 - [Testing](versions/v0.1.0/testing.md)
 - [Known Limitations](versions/v0.1.0/known-limitations.md)
+- [Visual Validation](versions/v0.1.0/visual-validation.md)

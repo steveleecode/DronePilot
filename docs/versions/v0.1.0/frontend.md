@@ -42,8 +42,7 @@ coordinates and center-of-gravity coordinates can be used directly.
 
 Any real viewer change must be checked in a browser at desktop and narrow
 widths. The check should verify model visibility, camera framing, orbit
-controls, center-of-gravity marker placement, console errors, and layout. The
-visual validation result is recorded in the integration polish commit.
+controls, center-of-gravity marker placement, console errors, and layout.
 
 ## Viewer Visual Check
 
@@ -60,3 +59,5 @@ Initial browser validation was performed against the real API and GLB output on
 - No browser console warnings or errors were reported during the check.
 - Desktop screenshot: [viewer-desktop.png](artifacts/viewer-desktop.png).
 - Narrow screenshot: [viewer-mobile.png](artifacts/viewer-mobile.png).
+
+See [Visual Validation](visual-validation.md) for the full integration record.

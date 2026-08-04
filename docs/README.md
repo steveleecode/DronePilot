@@ -14,6 +14,7 @@ Documentation layout:
 - `current.md`: pointer to the active documentation version.
 - `changelog.md`: documentation version index and release notes.
 - `decisions/`: future architecture decision records.
+- `versions/*/artifacts/`: small validation artifacts such as screenshots.
 - `templates/`: reusable documentation templates.
 
 Validate local Markdown links with:
