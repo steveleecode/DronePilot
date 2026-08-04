@@ -1,66 +1,60 @@
 # Testing And Validation
 
-## Current Status
+## Current Commands
 
-No automated test framework exists in v0.1.0.
-
-The only repository validation command is:
+Run backend and frontend tests:
 
 ```sh
-./scripts/validate-docs-links.sh
+make test
 ```
 
-This command validates local Markdown links in root documentation and
-`docs/**/*.md`.
+Run linting plus Markdown-link validation:
 
-## Required Testing Direction
+```sh
+make lint
+```
 
-Future features should add focused tests with the feature code. Validation
-should be as narrow as possible while still covering the risk of the change.
+Run type checks:
 
-Expected validation categories:
+```sh
+make typecheck
+```
 
-- Unit tests.
-- Integration tests.
-- Python type checking.
-- TypeScript type checking.
-- Linting.
-- Formatting checks.
-- Production builds.
-- CAD fixture imports.
-- Numerical regression tests.
-- API contract tests.
-- Browser rendering checks.
-- Screenshot or visual checks.
+Run production build checks:
 
-## Engineering Calculation Cases
+```sh
+make build
+```
 
-Tests for engineering calculations should cover:
+Run the practical validation suite:
+
+```sh
+make validate
+```
+
+## Current Coverage
+
+- Backend health endpoint test.
+- Frontend placeholder render test.
+- Documentation local link validation.
+
+## Required Engineering Tests
+
+CAD and analysis feature commits should add deterministic tests for:
 
 - Unit conversion.
 - Volume-to-mass conversion.
-- Center-of-gravity calculation.
+- Center-of-gravity aggregation.
 - Parallel-axis theorem.
 - Inertia-tensor aggregation.
-- Thrust and reaction torque.
-- Quaternion normalization.
-- Fixed-timestep integration.
-- Invalid or non-solid CAD bodies.
+- Zero-volume handling.
+- Missing-material handling.
 - Manufacturer mass overrides.
-- Missing material assignments.
+- Invalid or non-solid CAD bodies.
 
-Use tolerances rather than exact floating-point equality for numerical results
-where appropriate.
-
-## CAD Fixtures
-
-The current STEP file may become an integration fixture, but no code imports it
-yet. When CAD import is added, include smaller deterministic fixtures where
-possible so routine tests do not depend only on a large assembly file.
+Use tolerances rather than exact floating-point equality for numerical results.
 
 ## Visual Checks
 
-No visual checks can run in v0.1.0 because there is no frontend.
-
-When a frontend exists, any change affecting rendering, overlays, animation,
-layout, or interaction must include a visual check and record the result.
+The foundation commit does not render the real CAD model. Browser visual
+validation is required when the Three.js viewer is implemented.

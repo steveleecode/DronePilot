@@ -2,66 +2,41 @@
 
 ## Current Status
 
-No frontend code exists in v0.1.0.
+The frontend scaffold exists under `frontend/` and uses React, TypeScript,
+Vite, Three.js, React Three Fiber, and Vitest. The foundation screen is a
+placeholder shell for the CAD viewer.
 
-## Planned Frontend
+Run it with:
 
-The planned frontend should use React with Three.js or React Three Fiber to show
-the imported drone and its simulated movement.
+```sh
+make dev-frontend
+```
 
-Expected capabilities:
+## Planned Viewer
 
-- Load normalized assembly data.
-- Render drone geometry from generated meshes.
-- Show camera controls.
-- Display center-of-gravity overlays.
-- Display thrust vectors and motor state.
-- Animate simulation state.
-- Surface CAD-processing and simulation errors clearly.
+The v0.1.0 viewer will:
 
-## Scene Data Boundaries
+- Load model metadata and analysis from the FastAPI backend.
+- Display `generated/v1-drone.glb`.
+- Provide orbit controls and a camera reset.
+- Show a grid or reference plane.
+- Render a center-of-gravity marker from backend coordinates.
+- Toggle the center-of-gravity marker.
+- Toggle wireframe or part-boundary display where practical.
+- Present engineering properties and warnings in a side panel.
+- Handle loading and error states.
 
-The frontend should consume normalized data from a backend or static fixture.
-It should not depend on CadQuery, OCP, or Open CASCADE objects.
+## Boundaries
 
-Rendering data and physics data should stay separate:
+- `src/lib/`: API clients and shared utilities.
+- `src/features/`: domain-specific viewer and analysis features.
+- `src/components/`: reusable UI components.
 
-- Render meshes describe visual geometry.
-- Simulation state describes time, position, orientation, velocity, and control
-  state.
-- Engineering overlays describe centers of gravity, inertia, thrust, and part
-  metadata.
-
-## Coordinate Systems
-
-The project has not selected final coordinate conventions yet. When a frontend
-is introduced, document:
-
-- CAD source coordinate system.
-- Simulation world coordinate system.
-- Three.js coordinate system.
-- Unit scale used by the scene.
-- Quaternion ordering at API boundaries.
+The frontend must not hard-code calculated CAD properties. It consumes typed API
+responses and generated geometry.
 
 ## Visual-Check Requirements
 
-Any frontend, Three.js scene, overlay, animation, layout, or interaction change
-must receive a visual check before commit:
-
-1. Start required services.
-2. Open the affected interface.
-3. Exercise the changed interaction.
-4. Check browser-console errors.
-5. Check relevant responsive sizes.
-6. Verify model, camera, controls, overlays, and simulation state.
-7. Save a screenshot or visual artifact when supported.
-8. Record the result in docs or commit notes.
-
-Do not claim visual validation when no frontend or browser target exists.
-
-## Known Limitations In v0.1.0
-
-- No React app exists.
-- No Three.js scene exists.
-- No visual-check target exists.
-- No generated render meshes exist.
+Any real viewer change must be checked in a browser at desktop and narrow
+widths. The check should verify model visibility, camera framing, orbit
+controls, center-of-gravity marker placement, console errors, and layout.

@@ -2,71 +2,110 @@
 
 ## Prerequisites
 
-No runtime prerequisites are defined by the repository yet because there is no
-application code, package manifest, or build system.
+- Python 3.11 or 3.12.
+- Node.js 20 or another current LTS release.
+- npm.
+- Git and a POSIX-compatible shell.
 
-Useful local tools:
-
-- Git.
-- A POSIX-compatible shell for `scripts/validate-docs-links.sh`.
-
-Future work may introduce Python, CadQuery, OCP/Open CASCADE, Node.js,
-TypeScript, React, Three.js, C++, and Open CASCADE system dependencies.
+The backend uses CadQuery and OCP/Open CASCADE through Python dependencies.
+Those packages may install platform-specific wheels.
 
 ## Install Dependencies
 
-No install command exists yet.
+Install all dependencies:
 
-The repository does not currently include any of these files:
+```sh
+make setup
+```
 
-- `package.json`
-- `pyproject.toml`
-- `requirements.txt`
-- `Cargo.toml`
-- `CMakeLists.txt`
-- Lock files
+Backend only:
+
+```sh
+make setup-backend
+```
+
+Frontend only:
+
+```sh
+make setup-frontend
+```
+
+## CAD Processing
+
+Analyze the source STEP file:
+
+```sh
+make process-cad
+```
+
+Export browser geometry:
+
+```sh
+make export-web
+```
+
+These commands target `cad/v1-drone.step` and write generated artifacts under
+`generated/`.
 
 ## Development Services
 
-No development service command exists yet.
-
-## Frontend
-
-No frontend application exists yet. There is no command to start or build a
-frontend.
-
-## Backend
-
-No backend application exists yet. There is no command to start a backend API.
-
-## CAD-Processing Workers
-
-No CAD-processing worker exists yet. There is no command to import the STEP file
-or calculate mass properties.
-
-## Simulator
-
-No simulator exists yet. There is no command to run dynamics simulation.
-
-## Tests, Linters, Formatters, Type Checks, And Builds
-
-No test, lint, format, type-check, or production-build command exists yet.
-
-## Documentation Validation
-
-Run:
+Start the API:
 
 ```sh
-./scripts/validate-docs-links.sh
+make dev-api
 ```
 
-This checks local Markdown links in root documentation and `docs/**/*.md`.
+Start the frontend:
 
-## Visual Checks
+```sh
+make dev-frontend
+```
 
-No visual-check workflow can run yet because there is no frontend.
+`make dev` prints the two commands because they are intended to run in separate
+terminals.
 
-When a frontend is added, visual checks should include running the required
-services, opening the changed screen, checking browser-console errors, testing
-responsive sizes, verifying Three.js model/camera/control/overlay behavior, and
-saving a screenshot when supported by the environment.
+## Tests, Linters, Type Checks, And Builds
+
+Run tests:
+
+```sh
+make test
+```
+
+Run linting and Markdown-link validation:
+
+```sh
+make lint
+```
+
+Run type checks:
+
+```sh
+make typecheck
+```
+
+Build frontend production assets:
+
+```sh
+make build
+```
+
+Run practical validation:
+
+```sh
+make validate
+```
+
+## Local Demo
+
+After dependencies are installed, run:
+
+```sh
+make process-cad
+make export-web
+make dev-api
+make dev-frontend
+```
+
+The processing commands become fully operational in the CAD import and export
+feature commits.

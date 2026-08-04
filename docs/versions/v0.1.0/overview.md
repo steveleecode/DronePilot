@@ -1,85 +1,79 @@
 # DronePilot v0.1.0 Overview
 
-DronePilot is an early CAD-based drone simulation project. The intended product
-will import drone CAD assemblies, assign materials and measured engineering
-metadata, calculate mass properties, simulate six-degree-of-freedom dynamics,
-and display the drone in a React and Three.js or React Three Fiber frontend.
+DronePilot is a CAD-based drone analysis and simulation project. The v0.1.0
+milestone is the first end-to-end foundation for importing the bundled STEP
+drone, calculating preliminary mass properties, exporting renderable geometry,
+and displaying model properties in a browser.
 
 ## Implemented In This Snapshot
 
-- Root project README.
-- One STEP CAD assembly fixture:
-  `cad/V.1 Drone .STEP Export.step`.
+- Root `Makefile` with setup, processing, development, validation, and build
+  commands.
+- Python backend package scaffold under `backend/`.
+- FastAPI application with `GET /health`.
+- React, TypeScript, and Vite frontend scaffold under `frontend/`.
+- Generated artifact directory boundary under `generated/`.
 - Versioned documentation under `docs/`.
-- Root `AGENTS.md` workflow instructions.
 - Local Markdown link validator at `scripts/validate-docs-links.sh`.
+- Git-tracked CAD file rename to `cad/v1-drone.step`.
 
 ## Not Yet Implemented
 
-- Python CAD importer.
-- CadQuery or OCP/Open CASCADE integration.
-- Material assignment model.
-- Volume, mass, center-of-gravity, or inertia calculations.
-- Motor, propeller, battery, drag, torque, or dynamics models.
-- Backend API.
-- React frontend.
-- Three.js or React Three Fiber scene.
-- Test suites, linters, type checks, builds, CI, or deployment.
-- C++ Open CASCADE service.
+- STEP geometry importer.
+- Material assignment and mass-property calculations.
+- GLB or glTF export.
+- API endpoints for model metadata and analysis.
+- Interactive Three.js drone viewer.
+- Full flight dynamics, motor models, propeller aerodynamics, battery discharge,
+  PID control, PX4 or ArduPilot integration, CFD, deployment, or auth.
 
 ## Current Repository Layout
 
 ```text
 .
 ├── AGENTS.md
+├── Makefile
 ├── README.md
+├── backend/
+│   ├── pyproject.toml
+│   ├── src/drone_cad/
+│   └── tests/
 ├── cad/
-│   └── V.1 Drone .STEP Export.step
+│   └── v1-drone.step
 ├── docs/
-│   ├── README.md
-│   ├── changelog.md
-│   ├── current.md
-│   ├── decisions/
-│   ├── templates/
-│   │   └── version-release.md
-│   └── versions/
-│       └── v0.1.0/
-│           ├── architecture.md
-│           ├── cad-processing.md
-│           ├── frontend.md
-│           ├── overview.md
-│           ├── setup.md
-│           ├── simulation.md
-│           └── testing.md
+├── frontend/
+│   ├── package.json
+│   └── src/
+├── generated/
+│   └── .gitkeep
 └── scripts/
     └── validate-docs-links.sh
 ```
 
-## Current CAD Fixture
+## CAD Fixture
 
-The STEP file header reports:
+The STEP file is `cad/v1-drone.step`. It was originally supplied as
+`cad/V.1 Drone .STEP Export.step` and renamed through Git to reduce path-handling
+errors.
 
-- File name: `V.1 Drone .STEP Export.step`.
+The STEP header reports:
+
+- Original file name: `V.1 Drone .STEP Export.step`.
 - Timestamp: `2026-07-31T10:38:13-04:00`.
 - Originating system: `Autodesk Translation Framework v15.8.0.0`.
 - STEP schema: `AUTOMOTIVE_DESIGN`.
 
-The documentation does not assume this file has already been parsed or
-validated by project code.
+The foundation commit does not claim the file has been parsed or validated by
+project code. Import results are documented after the STEP importer runs.
 
 ## Product Direction
 
-The planned system should support these stages:
+The system is being introduced in vertical slices:
 
-1. Import a CAD assembly.
-2. Normalize part identities, transforms, units, and metadata.
-3. Assign materials, densities, measured masses, manufacturer masses, and other
-   engineering metadata.
-4. Calculate part and assembly mass properties.
-5. Build simulation-ready drone models.
-6. Run deterministic physics simulation.
-7. Stream or load state into a frontend viewer.
-8. Render geometry, center of gravity, thrust vectors, and simulation movement.
-
-All planned stages must be introduced incrementally with tests and
-documentation.
+1. Tooling and project structure.
+2. STEP import and inspection.
+3. Material and mass-property analysis.
+4. Browser geometry export.
+5. FastAPI model and analysis endpoints.
+6. Interactive React and Three.js viewer.
+7. Visual validation and integration polish.

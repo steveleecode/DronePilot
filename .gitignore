@@ -1,0 +1,26 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Python
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.egg-info/
+
+# Node
+frontend/dist/
+frontend/node_modules/
+frontend/coverage/
+frontend/*.tsbuildinfo
+
+# Generated CAD and analysis artifacts
+generated/*
+!generated/.gitkeep
+
+# Local editor state
+.idea/
+.vscode/
