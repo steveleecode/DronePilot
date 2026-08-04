@@ -58,6 +58,9 @@ Inspect the STEP file and print normalized geometry JSON:
 .venv/bin/python -m drone_cad.cli inspect-step cad/v1-drone.step
 ```
 
+The inspection output includes STEPCAF assembly metadata where available,
+including the recovered root label and direct component labels.
+
 Export browser-renderable geometry:
 
 ```sh

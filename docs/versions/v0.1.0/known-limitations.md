@@ -1,8 +1,9 @@
 # Known Limitations
 
-- STEP inspection imports `cad/v1-drone.step`, but assembly hierarchy,
-  component names, and placement transforms are not recovered by the basic
-  CadQuery importer.
+- STEP inspection imports `cad/v1-drone.step` and recovers root/direct component
+  labels through STEPCAF, but those labels are not yet correlated one-to-one with
+  the 300 tessellated solids used for mass analysis and GLB export.
+- Placement transforms are not yet exposed in normalized JSON.
 - STEP units are detected from header unit declarations; unusual STEP files may
   need more robust OCP-level unit handling.
 - Mass properties assume each imported solid has uniform density unless a

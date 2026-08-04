@@ -27,6 +27,23 @@ class CadPart(BaseModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class CadAssemblyComponent(BaseModel):
+    id: str
+    name: str
+    referenced_name: str | None = None
+    is_assembly: bool
+    is_simple_shape: bool
+    child_count: int
+
+
+class CadAssemblyMetadata(BaseModel):
+    root_name: str | None = None
+    direct_component_count: int = 0
+    total_component_usage_count: int = 0
+    components: list[CadAssemblyComponent] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
 class CadInspection(BaseModel):
     model_id: str
     source_step_path: str
@@ -39,4 +56,5 @@ class CadInspection(BaseModel):
     total_surface_area_m2: float | None
     bounding_box_m: BoundingBox
     parts: list[CadPart]
+    assembly_metadata: CadAssemblyMetadata | None = None
     warnings: list[str] = Field(default_factory=list)

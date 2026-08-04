@@ -31,9 +31,12 @@ STEP inspection changes:
 - Added a CadQuery STEP importer that validates paths, detects millimeter units,
   enumerates positive-volume solids, and converts geometry properties to SI
   units.
+- Added STEPCAF metadata recovery for root and component labels.
 - Added `python -m drone_cad.cli inspect-step cad/v1-drone.step`.
 - Recorded actual import results for the provided drone: `300` usable solids and
   `0.0005540579326155427 m^3` summed solid volume.
+- Recorded recovered assembly metadata: root label `Drone RCTimer with Realsense
+  Camera`, `24` direct components, and `71` total component usages.
 
 Mass analysis changes:
 

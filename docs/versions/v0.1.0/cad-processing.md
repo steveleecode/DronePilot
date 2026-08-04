@@ -25,6 +25,9 @@ The analyzer and GLB exporter are now implemented in v0.1.0 feature commits.
 `cad/v1-drone.step` was imported successfully with CadQuery.
 
 - Detected root shape type: `Compound`.
+- Recovered STEPCAF root label: `Drone RCTimer with Realsense Camera`.
+- Recovered direct assembly component labels: `24`.
+- Recovered total component usages: `71`.
 - Detected source length unit: millimeter.
 - Length scale to SI meters: `0.001`.
 - Usable solids found: `300`.
@@ -35,10 +38,22 @@ The analyzer and GLB exporter are now implemented in v0.1.0 feature commits.
 
 Warnings:
 
-- The file imported as one compound. Assembly hierarchy, component names, and
-  placement transforms were not recovered by the basic CadQuery importer.
+- CadQuery imports the file as one compound. STEPCAF recovers component labels,
+  but component-to-solid correlation is not yet implemented.
 - Stable IDs are generated as `solid-001`, `solid-002`, and so on from the
   imported solid order.
+
+Representative recovered component labels:
+
+- `15. Brazo v1:1`
+- `base drone v1:1`
+- `Zippy2800 v1:1`
+- `18. Motor v1:1`
+- `17. Hélice v1:1`
+- `Intel Realsense D435 v1:1`
+- `CASING BARU RASPI 4 v11:1`
+- `Pixhawk 2.4.8 v1:1`
+- `SPF455A 4in1 ESC v1:1`
 
 ## Planned Pipeline
 
@@ -50,6 +65,7 @@ Implemented:
 4. Enumerate positive-volume solids.
 5. Generate stable internal part IDs.
 6. Calculate volume, surface area, center of mass, bounds, and warnings.
+7. Recover STEPCAF root and component labels when available.
 
 Web export:
 
@@ -65,7 +81,7 @@ Web export:
 
 Still planned:
 
-1. Recover richer assembly names and transforms through lower-level OCP APIs.
+1. Correlate STEPCAF component labels and transforms to imported solids.
 2. Tune mesh quality after browser visual validation.
 
 ## Unit Convention

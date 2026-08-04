@@ -39,3 +39,17 @@ def test_importer_inspects_generated_box_in_si_units(tmp_path: Path) -> None:
     assert inspection.bounding_box_m.x == 0.01
     assert inspection.bounding_box_m.y == 0.02
     assert inspection.bounding_box_m.z == 0.03
+    assert inspection.assembly_metadata is not None
+
+
+def test_importer_recovers_drone_root_assembly_metadata() -> None:
+    inspection = StepImporter().inspect(Path("cad/v1-drone.step"))
+
+    assert inspection.assembly_metadata is not None
+    assert inspection.assembly_metadata.root_name == "Drone RCTimer with Realsense Camera"
+    assert inspection.assembly_metadata.direct_component_count == 24
+    assert inspection.assembly_metadata.total_component_usage_count == 71
+    assert any(
+        component.name == "Intel Realsense D435 v1:1"
+        for component in inspection.assembly_metadata.components
+    )

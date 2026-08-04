@@ -18,6 +18,8 @@ and displaying model properties in a browser.
 - Git-tracked CAD file rename to `cad/v1-drone.step`.
 - STEP inspection CLI that imports the provided drone and reports normalized
   part geometry.
+- STEPCAF assembly metadata recovery for the root model label and direct
+  component labels.
 - Material database and mass-property analyzer with density-derived mass,
   manufacturer override support, center-of-gravity aggregation, and inertia
   aggregation.
@@ -75,6 +77,9 @@ project code. The STEP inspection feature imported it as a compound with 300
 usable solids, detected millimeter source units, and measured a summed solid
 volume of `0.0005540579326155427 m^3`. With the approximate `carbon-fiber`
 default material, the density-derived total mass is `0.8864926921848683 kg`.
+STEPCAF metadata recovery identifies the root model as `Drone RCTimer with
+Realsense Camera`, with `24` direct component labels and `71` total component
+usages.
 
 ## Product Direction
 

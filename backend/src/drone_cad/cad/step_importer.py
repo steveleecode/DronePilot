@@ -10,6 +10,7 @@ os.environ.setdefault("XDG_CACHE_HOME", str(Path.cwd() / ".cache"))
 
 import cadquery as cq  # type: ignore[import-untyped]
 
+from drone_cad.cad.assembly_metadata import read_step_assembly_metadata
 from drone_cad.models.cad import BoundingBox, CadInspection, CadPart, Vector3
 
 
@@ -39,12 +40,19 @@ class StepImporter:
 
         root_shape: Any = workplane.val()
         solids = list(workplane.solids().vals())
+        assembly_metadata = read_step_assembly_metadata(resolved_path)
         warnings: list[str] = []
         if len(values) == 1 and len(solids) > 1:
-            warnings.append(
-                "Imported as one compound; assembly hierarchy, component names, and placements "
-                "were not recovered by the basic CadQuery importer."
-            )
+            if assembly_metadata.components:
+                warnings.append(
+                    "CadQuery imported one compound; STEPCAF recovered component labels, but "
+                    "component-to-solid correlation is not yet implemented."
+                )
+            else:
+                warnings.append(
+                    "Imported as one compound; assembly hierarchy, component names, and "
+                    "placements were not recovered."
+                )
         elif len(solids) == 1:
             warnings.append("Imported as a single solid.")
 
@@ -73,6 +81,7 @@ class StepImporter:
                 total_surface_area_m2=total_surface_area,
                 bounding_box_m=self._bounding_box(root_shape, length_scale_m),
                 parts=usable_parts,
+                assembly_metadata=assembly_metadata,
                 warnings=warnings,
             ),
             solids=[solid for _part, solid in usable_pairs],
