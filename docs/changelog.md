@@ -56,3 +56,9 @@ Web export changes:
   IDs where possible.
 - Verified the generated drone GLB is `11830320` bytes and loads as a scene with
   `300` geometries.
+
+API changes:
+
+- Added FastAPI routes for model metadata, analysis JSON, and GLB serving.
+- Added narrow development CORS for the local Vite frontend.
+- Added API tests using generated temporary artifacts.

@@ -76,6 +76,13 @@ Start the API:
 make dev-api
 ```
 
+API endpoints:
+
+- `GET http://127.0.0.1:8000/health`
+- `GET http://127.0.0.1:8000/api/v1/models/v1-drone`
+- `GET http://127.0.0.1:8000/api/v1/models/v1-drone/analysis`
+- `GET http://127.0.0.1:8000/api/v1/models/v1-drone/geometry.glb`
+
 Start the frontend:
 
 ```sh

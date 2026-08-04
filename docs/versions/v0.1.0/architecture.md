@@ -52,6 +52,19 @@ Planned v0.1.0 data flow:
 6. Serve analysis and model metadata from FastAPI.
 7. Render the model and engineering properties in the frontend.
 
+## API Structure
+
+Implemented endpoints:
+
+- `GET /health`
+- `GET /api/v1/models/v1-drone`
+- `GET /api/v1/models/v1-drone/analysis`
+- `GET /api/v1/models/v1-drone/geometry.glb`
+
+The API reads generated artifacts from `generated/` when present and regenerates
+analysis or GLB output from `cad/v1-drone.step` if local artifacts are missing.
+Development CORS is limited to the local Vite frontend origins.
+
 ## Coordinate Systems And Units
 
 - Internal calculations use SI units.

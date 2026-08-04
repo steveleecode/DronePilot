@@ -15,6 +15,8 @@
   recover semantic assembly component names.
 - Mesh quality uses one default tessellation tolerance and has not yet been
   visually tuned for the real drone.
+- API endpoints regenerate missing artifacts synchronously, so first request
+  latency can be high for the 44 MB STEP file.
 - The frontend currently renders only a placeholder shell.
 - The API currently exposes only `GET /health`.
 - No browser visual validation has been performed for a real drone model yet.

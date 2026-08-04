@@ -41,6 +41,8 @@ make validate
   parallel-axis, and aggregate inertia tests.
 - GLB export test that writes a generated box fixture and verifies `trimesh`
   can load the resulting file as a non-empty scene.
+- API tests for model metadata, generated analysis response loading, and GLB
+  file serving.
 - Frontend placeholder render test.
 - Documentation local link validation.
 
