@@ -6,6 +6,7 @@ from pathlib import Path
 
 from drone_cad.cad import StepImporter
 from drone_cad.services.mass_properties import MassPropertyAnalyzer
+from drone_cad.services.web_export import WebGeometryExporter
 
 
 def _write_json(payload: str, output_path: Path | None = None) -> None:
@@ -33,6 +34,7 @@ def main() -> int:
     export_parser = subparsers.add_parser("export-web")
     export_parser.add_argument("step_path", type=Path)
     export_parser.add_argument("--output", type=Path, required=True)
+    export_parser.add_argument("--tolerance", type=float, default=0.8)
 
     args = parser.parse_args()
     if args.command == "inspect-step":
@@ -46,6 +48,15 @@ def main() -> int:
             default_material_id=args.default_material,
         )
         _write_json(analysis.model_dump_json(indent=2), args.output)
+        return 0
+
+    if args.command == "export-web":
+        WebGeometryExporter().export_glb(
+            args.step_path,
+            output_path=args.output,
+            tolerance=args.tolerance,
+        )
+        print(json.dumps({"status": "ok", "output": str(args.output)}, indent=2))
         return 0
 
     print(

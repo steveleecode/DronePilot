@@ -64,6 +64,12 @@ Export browser-renderable geometry:
 make export-web
 ```
 
+Equivalent direct command:
+
+```sh
+.venv/bin/python -m drone_cad.cli export-web cad/v1-drone.step --output generated/v1-drone.glb
+```
+
 Start the API:
 
 ```sh

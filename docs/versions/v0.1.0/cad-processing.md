@@ -18,7 +18,7 @@ The STEP inspection feature implements:
 python -m drone_cad.cli inspect-step cad/v1-drone.step
 ```
 
-The analyzer and exporter are implemented in later v0.1.0 feature commits.
+The analyzer and GLB exporter are now implemented in v0.1.0 feature commits.
 
 ## Actual Import Results
 
@@ -51,10 +51,22 @@ Implemented:
 5. Generate stable internal part IDs.
 6. Calculate volume, surface area, center of mass, bounds, and warnings.
 
-Planned:
+Web export:
+
+- `python -m drone_cad.cli export-web cad/v1-drone.step --output generated/v1-drone.glb`
+  tessellates each imported solid and writes one GLB scene node per stable part
+  ID.
+- Vertices are converted to meters before export.
+- Meshes are generated for browser display, not mass-property calculation.
+- The current export path uses CadQuery tessellation plus `trimesh` GLB export
+  because CadQuery does not provide direct GLB export in this environment.
+- The real drone export produced `generated/v1-drone.glb`, `11830320` bytes,
+  loadable by `trimesh` as a scene with `300` geometries.
+
+Still planned:
 
 1. Recover richer assembly names and transforms through lower-level OCP APIs.
-2. Export browser geometry.
+2. Tune mesh quality after browser visual validation.
 
 ## Unit Convention
 

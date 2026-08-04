@@ -39,6 +39,8 @@ make validate
 - STEP inspection test using a generated box fixture.
 - Density-to-mass, mass override, missing material, zero-volume, part inertia,
   parallel-axis, and aggregate inertia tests.
+- GLB export test that writes a generated box fixture and verifies `trimesh`
+  can load the resulting file as a non-empty scene.
 - Frontend placeholder render test.
 - Documentation local link validation.
 

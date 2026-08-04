@@ -46,3 +46,13 @@ Mass analysis changes:
   carbon-fiber --output generated/v1-drone-analysis.json`.
 - Recorded the preliminary carbon-fiber default analysis result:
   `0.8864926921848683 kg` total mass.
+
+Web export changes:
+
+- Added a CadQuery tessellation to `trimesh` GLB export pipeline.
+- Added `python -m drone_cad.cli export-web cad/v1-drone.step --output
+  generated/v1-drone.glb`.
+- Preserved separate imported solids as GLB scene geometry named by stable part
+  IDs where possible.
+- Verified the generated drone GLB is `11830320` bytes and loads as a scene with
+  `300` geometries.
