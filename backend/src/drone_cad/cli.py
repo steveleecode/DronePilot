@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from drone_cad.cad import StepImporter
+from drone_cad.services.mass_properties import MassPropertyAnalyzer
 
 
 def _write_json(payload: str, output_path: Path | None = None) -> None:
@@ -37,6 +38,14 @@ def main() -> int:
     if args.command == "inspect-step":
         inspection = StepImporter().inspect(args.step_path)
         _write_json(inspection.model_dump_json(indent=2), args.output)
+        return 0
+
+    if args.command == "analyze":
+        analysis = MassPropertyAnalyzer().analyze_step(
+            args.step_path,
+            default_material_id=args.default_material,
+        )
+        _write_json(analysis.model_dump_json(indent=2), args.output)
         return 0
 
     print(

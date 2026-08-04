@@ -37,6 +37,8 @@ make validate
 - Backend health endpoint test.
 - STEP unit detection test.
 - STEP inspection test using a generated box fixture.
+- Density-to-mass, mass override, missing material, zero-volume, part inertia,
+  parallel-axis, and aggregate inertia tests.
 - Frontend placeholder render test.
 - Documentation local link validation.
 
@@ -45,13 +47,7 @@ make validate
 CAD and analysis feature commits should add deterministic tests for:
 
 - Unit conversion.
-- Volume-to-mass conversion.
-- Center-of-gravity aggregation.
-- Parallel-axis theorem.
-- Inertia-tensor aggregation.
-- Zero-volume handling.
-- Missing-material handling.
-- Manufacturer mass overrides.
+- CAD unit conversion beyond the initial millimeter path.
 - Invalid or non-solid CAD bodies.
 
 Use tolerances rather than exact floating-point equality for numerical results.

@@ -46,6 +46,12 @@ Process the STEP file into normalized analysis JSON:
 make process-cad
 ```
 
+Equivalent direct command:
+
+```sh
+.venv/bin/python -m drone_cad.cli analyze cad/v1-drone.step --default-material carbon-fiber --output generated/v1-drone-analysis.json
+```
+
 Inspect the STEP file and print normalized geometry JSON:
 
 ```sh

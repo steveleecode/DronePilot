@@ -34,3 +34,15 @@ STEP inspection changes:
 - Added `python -m drone_cad.cli inspect-step cad/v1-drone.step`.
 - Recorded actual import results for the provided drone: `300` usable solids and
   `0.0005540579326155427 m^3` summed solid volume.
+
+Mass analysis changes:
+
+- Added material and part mass assignment models.
+- Added an initial approximate material database.
+- Added density-derived mass, manufacturer mass override behavior, combined
+  center-of-gravity calculation, and inertia aggregation with the parallel-axis
+  theorem.
+- Added `python -m drone_cad.cli analyze cad/v1-drone.step --default-material
+  carbon-fiber --output generated/v1-drone-analysis.json`.
+- Recorded the preliminary carbon-fiber default analysis result:
+  `0.8864926921848683 kg` total mass.

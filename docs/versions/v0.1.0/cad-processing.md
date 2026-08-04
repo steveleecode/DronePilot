@@ -54,9 +54,7 @@ Implemented:
 Planned:
 
 1. Recover richer assembly names and transforms through lower-level OCP APIs.
-2. Apply material assignments and mass overrides.
-3. Calculate assembly mass, center of gravity, and inertia.
-4. Export browser geometry.
+2. Export browser geometry.
 
 ## Unit Convention
 

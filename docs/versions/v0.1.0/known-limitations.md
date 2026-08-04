@@ -5,8 +5,13 @@
   CadQuery importer.
 - STEP units are detected from header unit declarations; unusual STEP files may
   need more robust OCP-level unit handling.
-- No material assignment, volume-derived mass, center of gravity, bounding box,
-  inertia tensor, or generated GLB exists yet.
+- Mass properties assume each imported solid has uniform density unless a
+  manufacturer mass override is supplied programmatically.
+- The CLI currently applies one global default material to every part.
+- Inertia values are density-derived from CAD geometry and do not include motors,
+  electronics, fasteners, batteries, propellers, or manufacturing variation
+  unless those are represented as solids with appropriate material assumptions.
+- No generated GLB exists yet.
 - The frontend currently renders only a placeholder shell.
 - The API currently exposes only `GET /health`.
 - No browser visual validation has been performed for a real drone model yet.

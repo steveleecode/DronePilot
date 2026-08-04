@@ -18,11 +18,14 @@ and displaying model properties in a browser.
 - Git-tracked CAD file rename to `cad/v1-drone.step`.
 - STEP inspection CLI that imports the provided drone and reports normalized
   part geometry.
+- Material database and mass-property analyzer with density-derived mass,
+  manufacturer override support, center-of-gravity aggregation, and inertia
+  aggregation.
 
 ## Not Yet Implemented
 
 - Rich STEP assembly hierarchy and placement recovery.
-- Material assignment and mass-property calculations.
+- Per-part custom material assignment files.
 - GLB or glTF export.
 - API endpoints for model metadata and analysis.
 - Interactive Three.js drone viewer.
@@ -68,7 +71,8 @@ The STEP header reports:
 The foundation commit does not claim the file has been parsed or validated by
 project code. The STEP inspection feature imported it as a compound with 300
 usable solids, detected millimeter source units, and measured a summed solid
-volume of `0.0005540579326155427 m^3`.
+volume of `0.0005540579326155427 m^3`. With the approximate `carbon-fiber`
+default material, the density-derived total mass is `0.8864926921848683 kg`.
 
 ## Product Direction
 

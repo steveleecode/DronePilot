@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -16,8 +17,17 @@ class StepImportError(ValueError):
     """Raised when a STEP file cannot be imported as usable CAD geometry."""
 
 
+@dataclass(frozen=True)
+class ImportedCadGeometry:
+    inspection: CadInspection
+    solids: list[Any]
+
+
 class StepImporter:
     def inspect(self, step_path: Path, model_id: str = "v1-drone") -> CadInspection:
+        return self.load(step_path, model_id=model_id).inspection
+
+    def load(self, step_path: Path, model_id: str = "v1-drone") -> ImportedCadGeometry:
         resolved_path = step_path.expanduser().resolve()
         self._validate_path(resolved_path)
 
@@ -38,30 +48,34 @@ class StepImporter:
         elif len(solids) == 1:
             warnings.append("Imported as a single solid.")
 
-        parts = [
-            self._solid_to_part(solid=solid, index=index, length_scale_m=length_scale_m)
+        part_solid_pairs = [
+            (self._solid_to_part(solid=solid, index=index, length_scale_m=length_scale_m), solid)
             for index, solid in enumerate(solids, start=1)
         ]
-        usable_parts = [part for part in parts if part.volume_m3 > 0]
+        usable_pairs = [(part, solid) for part, solid in part_solid_pairs if part.volume_m3 > 0]
+        usable_parts = [part for part, _solid in usable_pairs]
         if not usable_parts:
             raise StepImportError(f"No positive-volume solids were imported from {resolved_path}")
 
         total_surface_area = sum(
             part.surface_area_m2 for part in usable_parts if part.surface_area_m2 is not None
         )
-        return CadInspection(
-            model_id=model_id,
-            source_step_path=str(resolved_path),
-            source_step_size_bytes=resolved_path.stat().st_size,
-            source_length_unit=unit_name,
-            length_unit_scale_to_m=length_scale_m,
-            detected_shape_type=str(root_shape.ShapeType()),
-            part_count=len(usable_parts),
-            total_volume_m3=sum(part.volume_m3 for part in usable_parts),
-            total_surface_area_m2=total_surface_area,
-            bounding_box_m=self._bounding_box(root_shape, length_scale_m),
-            parts=usable_parts,
-            warnings=warnings,
+        return ImportedCadGeometry(
+            inspection=CadInspection(
+                model_id=model_id,
+                source_step_path=str(resolved_path),
+                source_step_size_bytes=resolved_path.stat().st_size,
+                source_length_unit=unit_name,
+                length_unit_scale_to_m=length_scale_m,
+                detected_shape_type=str(root_shape.ShapeType()),
+                part_count=len(usable_parts),
+                total_volume_m3=sum(part.volume_m3 for part in usable_parts),
+                total_surface_area_m2=total_surface_area,
+                bounding_box_m=self._bounding_box(root_shape, length_scale_m),
+                parts=usable_parts,
+                warnings=warnings,
+            ),
+            solids=[solid for _part, solid in usable_pairs],
         )
 
     @staticmethod
