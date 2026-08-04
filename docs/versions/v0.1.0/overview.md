@@ -21,6 +21,8 @@ and displaying model properties in a browser.
 - Material database and mass-property analyzer with density-derived mass,
   manufacturer override support, center-of-gravity aggregation, and inertia
   aggregation.
+- Interactive React and Three.js viewer that loads API data and generated GLB
+  geometry.
 
 ## Not Yet Implemented
 
@@ -28,7 +30,7 @@ and displaying model properties in a browser.
 - Per-part custom material assignment files.
 - GLB or glTF export.
 - API endpoints for model metadata and analysis.
-- Interactive Three.js drone viewer.
+- Visual validation of the real viewer in a browser.
 - Full flight dynamics, motor models, propeller aerodynamics, battery discharge,
   PID control, PX4 or ArduPilot integration, CFD, deployment, or auth.
 

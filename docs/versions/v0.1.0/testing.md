@@ -43,6 +43,8 @@ make validate
   can load the resulting file as a non-empty scene.
 - API tests for model metadata, generated analysis response loading, and GLB
   file serving.
+- Frontend tests for API-backed analysis rendering and engineering value
+  formatting.
 - Frontend placeholder render test.
 - Documentation local link validation.
 

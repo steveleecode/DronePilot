@@ -62,3 +62,12 @@ API changes:
 - Added FastAPI routes for model metadata, analysis JSON, and GLB serving.
 - Added narrow development CORS for the local Vite frontend.
 - Added API tests using generated temporary artifacts.
+
+Viewer changes:
+
+- Added an interactive React Three Fiber viewer that loads API-served GLB
+  geometry.
+- Added center-of-gravity and wireframe toggles, orbit controls, camera reset,
+  z-up grid, and engineering-property panel.
+- Added frontend tests for API-loaded properties and engineering-value
+  formatting.
