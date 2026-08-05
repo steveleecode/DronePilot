@@ -49,6 +49,8 @@ Mass analysis changes:
   carbon-fiber --output generated/v1-drone-analysis.json`.
 - Recorded the preliminary carbon-fiber default analysis result:
   `0.8864926921848683 kg` total mass.
+- Added JSON material assignment profiles for per-solid material and
+  manufacturer-mass overrides.
 
 Web export changes:
 

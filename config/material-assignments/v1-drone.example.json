@@ -1,0 +1,15 @@
+{
+  "profile_id": "v1-drone-example",
+  "description": "Example profile demonstrating stable solid ID material and mass overrides. Values are illustrative, not validated manufacturer data.",
+  "default_material_id": "carbon-fiber",
+  "assignments": [
+    {
+      "part_id": "solid-001",
+      "material_id": "aluminum-6061"
+    },
+    {
+      "part_id": "solid-004",
+      "manufacturer_mass_kg": 0.18
+    }
+  ]
+}

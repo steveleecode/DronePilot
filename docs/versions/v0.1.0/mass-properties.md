@@ -76,3 +76,30 @@ Warnings:
 
 - The STEP file imports as one compound, so assembly hierarchy, component names,
   and placements are not recovered by the basic CadQuery importer.
+
+## Material Assignment Profiles
+
+Analysis can read a JSON material assignment profile:
+
+```sh
+python -m drone_cad.cli analyze cad/v1-drone.step \
+  --assignments config/material-assignments/v1-drone.example.json \
+  --output generated/v1-drone-analysis.json
+```
+
+Profile fields:
+
+- `profile_id`: stable identifier for the assignment set.
+- `description`: human-readable note about the profile.
+- `default_material_id`: optional default material for all unassigned solids.
+- `assignments`: per-solid overrides keyed by stable IDs such as `solid-001`.
+
+Each assignment may specify:
+
+- `material_id`: one of the known material database IDs.
+- `manufacturer_mass_kg`: an explicit mass override. When present, this mass
+  takes precedence over density-derived mass for that solid.
+
+The example profile is illustrative and is not manufacturer-validated data.
+Component labels recovered from STEPCAF are not yet correlated one-to-one with
+the stable `solid-###` IDs, so assignment profiles currently target solid IDs.

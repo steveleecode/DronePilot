@@ -6,6 +6,10 @@ from pathlib import Path
 
 from drone_cad.cad import StepImporter
 from drone_cad.services.mass_properties import MassPropertyAnalyzer
+from drone_cad.services.material_profiles import (
+    MaterialProfileError,
+    load_material_assignment_profile,
+)
 from drone_cad.services.web_export import WebGeometryExporter
 
 
@@ -29,6 +33,7 @@ def main() -> int:
     analyze_parser = subparsers.add_parser("analyze")
     analyze_parser.add_argument("step_path", type=Path)
     analyze_parser.add_argument("--default-material", default="carbon-fiber")
+    analyze_parser.add_argument("--assignments", type=Path)
     analyze_parser.add_argument("--output", type=Path)
 
     export_parser = subparsers.add_parser("export-web")
@@ -43,9 +48,19 @@ def main() -> int:
         return 0
 
     if args.command == "analyze":
+        default_material = args.default_material
+        assignments = []
+        if args.assignments is not None:
+            try:
+                profile = load_material_assignment_profile(args.assignments)
+            except MaterialProfileError as exc:
+                parser.error(str(exc))
+            default_material = profile.default_material_id or default_material
+            assignments = profile.assignments
         analysis = MassPropertyAnalyzer().analyze_step(
             args.step_path,
-            default_material_id=args.default_material,
+            default_material_id=default_material,
+            assignments=assignments,
         )
         _write_json(analysis.model_dump_json(indent=2), args.output)
         return 0

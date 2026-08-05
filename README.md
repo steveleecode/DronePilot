@@ -52,6 +52,12 @@ Equivalent direct command:
 .venv/bin/python -m drone_cad.cli analyze cad/v1-drone.step --default-material carbon-fiber --output generated/v1-drone-analysis.json
 ```
 
+Analyze with a material/mass assignment profile:
+
+```sh
+.venv/bin/python -m drone_cad.cli analyze cad/v1-drone.step --assignments config/material-assignments/v1-drone.example.json --output generated/v1-drone-analysis.json
+```
+
 Inspect the STEP file and print normalized geometry JSON:
 
 ```sh

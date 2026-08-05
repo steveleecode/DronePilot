@@ -9,6 +9,8 @@
 - Mass properties assume each imported solid has uniform density unless a
   manufacturer mass override is supplied programmatically.
 - The CLI currently applies one global default material to every part.
+- Material assignment profiles can override stable `solid-###` IDs, but cannot
+  yet target recovered STEPCAF component labels.
 - Inertia values are density-derived from CAD geometry and do not include motors,
   electronics, fasteners, batteries, propellers, or manufacturing variation
   unless those are represented as solids with appropriate material assumptions.
