@@ -2,7 +2,18 @@
 
 ## Current Status
 
-No simulation code exists in v0.1.0.
+The project now includes static handling estimates. Full rigid-body flight
+simulation is still not implemented.
+
+Implemented:
+
+- Motor and battery spec models.
+- Approximate common motor and battery presets.
+- Custom motor and battery spec JSON loading.
+- Static estimates for thrust-to-weight ratio, hover throttle, hover current,
+  hover power, and hover time.
+
+See [Handling Estimates](handling-estimates.md).
 
 ## Planned Model
 

@@ -43,6 +43,9 @@ make validate
   can load the resulting file as a non-empty scene.
 - API tests for model metadata, generated analysis response loading, and GLB
   file serving.
+- Static handling estimator tests for hover metrics, underpowered warnings, and
+  battery-mass accounting.
+- Propulsion catalog tests for custom motor and battery JSON loading.
 - Frontend tests for API-backed analysis rendering and engineering value
   formatting.
 - Frontend placeholder render test.

@@ -25,6 +25,8 @@ and displaying model properties in a browser.
   aggregation.
 - Interactive React and Three.js viewer that loads API data and generated GLB
   geometry.
+- Static handling estimator with motor and battery presets plus custom JSON
+  spec loading.
 
 ## Not Yet Implemented
 
@@ -33,7 +35,7 @@ and displaying model properties in a browser.
 - GLB or glTF export.
 - API endpoints for model metadata and analysis.
 - Visual validation of the real viewer in a browser.
-- Full flight dynamics, motor models, propeller aerodynamics, battery discharge,
+- Full flight dynamics, propeller performance curves, battery discharge curves,
   PID control, PX4 or ArduPilot integration, CFD, deployment, or auth.
 
 ## Current Repository Layout

@@ -91,6 +91,16 @@ API endpoints:
 - `GET http://127.0.0.1:8000/api/v1/models/v1-drone`
 - `GET http://127.0.0.1:8000/api/v1/models/v1-drone/analysis`
 - `GET http://127.0.0.1:8000/api/v1/models/v1-drone/geometry.glb`
+- `GET http://127.0.0.1:8000/api/v1/models/v1-drone/handling`
+
+Estimate static handling from generated analysis:
+
+```sh
+.venv/bin/python -m drone_cad.cli estimate-handling \
+  --analysis generated/v1-drone-analysis.json \
+  --motor 2212-920kv-1045 \
+  --battery 4s-5200mah-35c-lipo
+```
 
 Start the frontend:
 

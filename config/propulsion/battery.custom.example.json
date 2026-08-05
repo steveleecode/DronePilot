@@ -1,0 +1,11 @@
+{
+  "id": "custom-6s-4000mah",
+  "name": "Custom 6S 4000mAh LiPo pack",
+  "cell_count": 6,
+  "capacity_mah": 4000.0,
+  "nominal_voltage_v": 22.2,
+  "max_continuous_current_a": 160.0,
+  "mass_kg": 0.62,
+  "usable_capacity_fraction": 0.8,
+  "source_note": "Example custom battery spec. Replace with measured pack mass and discharge data."
+}

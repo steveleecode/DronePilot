@@ -60,10 +60,16 @@ Implemented endpoints:
 - `GET /api/v1/models/v1-drone`
 - `GET /api/v1/models/v1-drone/analysis`
 - `GET /api/v1/models/v1-drone/geometry.glb`
+- `GET /api/v1/models/v1-drone/handling`
 
 The API reads generated artifacts from `generated/` when present and regenerates
 analysis or GLB output from `cad/v1-drone.step` if local artifacts are missing.
 Development CORS is limited to the local Vite frontend origins.
+
+Handling estimates consume the generated analysis mass plus motor and battery
+specifications. They are kept separate from future dynamic simulation code so
+the static sizing model can be replaced or expanded without changing the CAD
+import boundary.
 
 ## Coordinate Systems And Units
 

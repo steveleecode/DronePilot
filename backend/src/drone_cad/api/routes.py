@@ -7,7 +7,10 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from drone_cad.models.analysis import DroneAnalysis
+from drone_cad.models.propulsion import DroneHandlingEstimate
+from drone_cad.services.handling import estimate_handling
 from drone_cad.services.mass_properties import MassPropertyAnalyzer
+from drone_cad.services.propulsion_catalog import get_battery_spec, get_motor_spec
 from drone_cad.services.web_export import WebGeometryExporter
 
 router = APIRouter(prefix="/api/v1")
@@ -18,6 +21,7 @@ class DroneModelMetadata(BaseModel):
     source_step_path: str
     analysis_url: str
     geometry_url: str
+    handling_url: str
 
 
 def model_id() -> str:
@@ -47,6 +51,7 @@ def get_model() -> DroneModelMetadata:
         source_step_path=str(source_step_path()),
         analysis_url="/api/v1/models/v1-drone/analysis",
         geometry_url="/api/v1/models/v1-drone/geometry.glb",
+        handling_url="/api/v1/models/v1-drone/handling",
     )
 
 
@@ -64,6 +69,25 @@ def get_analysis() -> DroneAnalysis:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(analysis.model_dump_json(indent=2) + "\n", encoding="utf-8")
     return analysis
+
+
+@router.get("/models/v1-drone/handling", response_model=DroneHandlingEstimate)
+def get_handling_estimate(
+    motor: str = "2212-920kv-1045",
+    battery: str = "4s-5200mah-35c-lipo",
+    motor_count: int = 4,
+    payload_mass_kg: float = 0.0,
+    include_battery_mass: bool = True,
+) -> DroneHandlingEstimate:
+    analysis = get_analysis()
+    return estimate_handling(
+        analysis=analysis,
+        motor=get_motor_spec(motor),
+        battery=get_battery_spec(battery),
+        motor_count=motor_count,
+        payload_mass_kg=payload_mass_kg,
+        include_battery_mass=include_battery_mass,
+    )
 
 
 @router.get("/models/v1-drone/geometry.glb")

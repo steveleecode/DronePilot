@@ -5,10 +5,19 @@ import json
 from pathlib import Path
 
 from drone_cad.cad import StepImporter
+from drone_cad.models.analysis import DroneAnalysis
+from drone_cad.services.handling import estimate_handling
 from drone_cad.services.mass_properties import MassPropertyAnalyzer
 from drone_cad.services.material_profiles import (
     MaterialProfileError,
     load_material_assignment_profile,
+)
+from drone_cad.services.propulsion_catalog import (
+    BATTERY_SPECS,
+    MOTOR_SPECS,
+    PropulsionSpecError,
+    get_battery_spec,
+    get_motor_spec,
 )
 from drone_cad.services.web_export import WebGeometryExporter
 
@@ -41,6 +50,26 @@ def main() -> int:
     export_parser.add_argument("--output", type=Path, required=True)
     export_parser.add_argument("--tolerance", type=float, default=0.8)
 
+    handling_parser = subparsers.add_parser("estimate-handling")
+    handling_parser.add_argument(
+        "--analysis",
+        type=Path,
+        default=Path("generated/v1-drone-analysis.json"),
+    )
+    handling_parser.add_argument("--motor", default="2212-920kv-1045", choices=sorted(MOTOR_SPECS))
+    handling_parser.add_argument(
+        "--battery",
+        default="4s-5200mah-35c-lipo",
+        choices=sorted(BATTERY_SPECS),
+    )
+    handling_parser.add_argument("--motor-spec", type=Path)
+    handling_parser.add_argument("--battery-spec", type=Path)
+    handling_parser.add_argument("--motor-count", type=int, default=4)
+    handling_parser.add_argument("--payload-mass-kg", type=float, default=0.0)
+    handling_parser.add_argument("--base-airframe-mass-kg", type=float)
+    handling_parser.add_argument("--exclude-battery-mass", action="store_true")
+    handling_parser.add_argument("--output", type=Path)
+
     args = parser.parse_args()
     if args.command == "inspect-step":
         inspection = StepImporter().inspect(args.step_path)
@@ -72,6 +101,27 @@ def main() -> int:
             tolerance=args.tolerance,
         )
         print(json.dumps({"status": "ok", "output": str(args.output)}, indent=2))
+        return 0
+
+    if args.command == "estimate-handling":
+        try:
+            analysis = DroneAnalysis.model_validate_json(args.analysis.read_text(encoding="utf-8"))
+            motor = get_motor_spec(args.motor, args.motor_spec)
+            battery = get_battery_spec(args.battery, args.battery_spec)
+            estimate = estimate_handling(
+                analysis=analysis,
+                motor=motor,
+                battery=battery,
+                motor_count=args.motor_count,
+                payload_mass_kg=args.payload_mass_kg,
+                include_battery_mass=not args.exclude_battery_mass,
+                base_airframe_mass_kg=args.base_airframe_mass_kg,
+            )
+        except FileNotFoundError:
+            parser.error(f"Analysis file not found: {args.analysis}")
+        except (PropulsionSpecError, ValueError) as exc:
+            parser.error(str(exc))
+        _write_json(estimate.model_dump_json(indent=2), args.output)
         return 0
 
     print(

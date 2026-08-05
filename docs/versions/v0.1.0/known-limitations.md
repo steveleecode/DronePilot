@@ -20,6 +20,11 @@
   visually tuned for the real drone.
 - API endpoints regenerate missing artifacts synchronously, so first request
   latency can be high for the 44 MB STEP file.
+- Handling estimates are static sizing estimates, not flight simulation. They do
+  not model propeller curves, ESC efficiency, voltage sag, drag, attitude
+  dynamics, or controller behavior.
+- Built-in motor and battery specs are approximate class presets, not certified
+  manufacturer data.
 - The frontend currently renders only a placeholder shell.
 - The API currently exposes only `GET /health`.
 - No browser visual validation has been performed for a real drone model yet.

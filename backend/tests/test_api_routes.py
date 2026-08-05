@@ -54,3 +54,17 @@ def test_geometry_endpoint_returns_generated_glb(tmp_path: Path, monkeypatch) ->
     assert response.status_code == 200
     assert response.headers["content-type"] == "model/gltf-binary"
     assert response.content == b"glTF test"
+
+
+def test_handling_endpoint_returns_static_estimate(tmp_path: Path, monkeypatch) -> None:
+    generated_analysis = tmp_path / "analysis.json"
+    generated_analysis.write_text(_sample_analysis().model_dump_json(), encoding="utf-8")
+    monkeypatch.setattr(routes, "analysis_path", lambda: generated_analysis)
+
+    response = TestClient(app).get("/api/v1/models/v1-drone/handling")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["motor_count"] == 4
+    assert payload["motor"]["id"] == "2212-920kv-1045"
+    assert payload["battery"]["id"] == "4s-5200mah-35c-lipo"

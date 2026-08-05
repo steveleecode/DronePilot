@@ -1,0 +1,11 @@
+{
+  "id": "custom-2807-1300kv",
+  "name": "Custom 2807 1300KV motor",
+  "kv_rating": 1300,
+  "recommended_propeller_in": "7x4",
+  "nominal_voltage_v": 22.2,
+  "max_thrust_n": 18.5,
+  "max_current_a": 34.0,
+  "mass_kg": 0.058,
+  "source_note": "Example custom motor spec. Replace with measured thrust table values."
+}

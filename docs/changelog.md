@@ -83,3 +83,14 @@ Integration validation:
   screenshots.
 - Confirmed the API and frontend run together against generated analysis and
   GLB artifacts.
+
+Handling estimate changes:
+
+- Added motor and battery spec models with approximate common presets.
+- Added custom motor and battery JSON spec loading.
+- Added static handling estimates for thrust-to-weight ratio, hover throttle,
+  hover current, hover power, and hover time.
+- Added `GET /api/v1/models/v1-drone/handling`.
+- Added `python -m drone_cad.cli estimate-handling`.
+- Recorded the current default estimate: `2.9252169277848576`
+  thrust-to-weight and `20.812796964258528 min` idealized hover time.

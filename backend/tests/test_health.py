@@ -23,4 +23,5 @@ def test_model_metadata_endpoint() -> None:
         "source_step_path": "cad/v1-drone.step",
         "analysis_url": "/api/v1/models/v1-drone/analysis",
         "geometry_url": "/api/v1/models/v1-drone/geometry.glb",
+        "handling_url": "/api/v1/models/v1-drone/handling",
     }
